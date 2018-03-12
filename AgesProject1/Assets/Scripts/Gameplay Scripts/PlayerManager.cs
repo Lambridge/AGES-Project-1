@@ -42,8 +42,6 @@ public class PlayerManager
     {
         playerMovement.enabled = false;
         playerThrowingObject.enabled = false;
-
-        canvasObject.SetActive(false);
     }
 
 
@@ -51,8 +49,6 @@ public class PlayerManager
     {
         playerMovement.enabled = true;
         playerThrowingObject.enabled = true;
-
-        canvasObject.SetActive(true);
     }
 
     public void Reset()

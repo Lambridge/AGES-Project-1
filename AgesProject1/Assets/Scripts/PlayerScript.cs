@@ -27,6 +27,7 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] LayerMask whatIsGround;
     [SerializeField] float jumpVelocity = 20f;
     bool isOnGround;
+    bool canJump;
     #endregion
 
     #region Grabbing/Throwing Variables
@@ -61,12 +62,10 @@ public class PlayerScript : MonoBehaviour {
 
     private void Update()
     {
-        {
-            HandleMovementInput();
-            HandleJumpInput();
-            //HandleGrabOrThrowInput();
-            UpdateIsOnGround();
-        }
+        HandleMovementInput();
+        HandleJumpInput();
+        //HandleGrabOrThrowInput();
+        UpdateIsOnGround();
     }
 
     private void HandleMovementInput()
@@ -138,20 +137,44 @@ public class PlayerScript : MonoBehaviour {
 
     void HandleJumpInput()
     {
+        //If we're on the ground, the player can always jump
+        if(IsOnGround)
+            canJump = true;
+        
         //If player presses jump button and is on ground
-        if (Input.GetButtonDown(jumpButtonName) && IsOnGround)
+        if (Input.GetButtonDown(jumpButtonName))
         {
-            //Non-vertical speed needs to stay the same
-            float xVelocity = playerRigidbody.velocity.x;
-            float zVelocity = playerRigidbody.velocity.z;
-            //Make new upward velocity
-            float yVelocity = jumpVelocity;
-            //Make the overall new velocity
-            Vector3 velocityToSet = new Vector3(xVelocity, yVelocity, zVelocity);
-            //Set the new velocity
-            playerRigidbody.velocity = velocityToSet;
-            currentPlayerState = PlayerState.inMidair;
-            Debug.Log("State set to inMidair");
+            if (IsOnGround)
+            {
+                //Non-vertical speed needs to stay the same
+                float xVelocity = playerRigidbody.velocity.x;
+                float zVelocity = playerRigidbody.velocity.z;
+                //Make new upward velocity
+                float yVelocity = jumpVelocity;
+                //Make the overall new velocity
+                Vector3 velocityToSet = new Vector3(xVelocity, yVelocity, zVelocity);
+                //Set the new velocity
+                playerRigidbody.velocity = velocityToSet;
+                currentPlayerState = PlayerState.inMidair;
+                Debug.Log("State set to inMidair");
+            }
+            else if(canJump)
+            {
+                //Non-vertical speed needs to stay the same
+                float xVelocity = playerRigidbody.velocity.x;
+                float zVelocity = playerRigidbody.velocity.z;
+                //Make new upward velocity
+                float yVelocity = jumpVelocity;
+                //Make the overall new velocity
+                Vector3 velocityToSet = new Vector3(xVelocity, yVelocity, zVelocity);
+                //Set the new velocity
+                playerRigidbody.velocity = velocityToSet;
+                currentPlayerState = PlayerState.inMidair;
+                Debug.Log("State set to inMidair");
+
+                //They can only jump in midair once
+                canJump = false;
+            }
         }
     }
 

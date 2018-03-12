@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 
         SpawnAllPlayers();
         //SetCameraTargets();
+
+        StartCoroutine(GameLoop());
     }
 
     private void SpawnAllPlayers()
@@ -78,13 +80,10 @@ public class GameManager : MonoBehaviour {
 
         //m_CameraControl.SetStartPositionAndSize();
 
-        gameMessageText.text = "Ready?";
+        gameMessageText.text = "Fight!";
 
         yield return startWaitTime;
-
-        gameMessageText.text = "Fight!";
     }
-
 
     private IEnumerator GamePlaying()
     {

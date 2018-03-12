@@ -9,11 +9,7 @@ public class PlayerHealth : MonoBehaviour {
     private float currentHealth;
 
     public Slider sliderObject;
-    public Image sliderFillImage;
-    public Color fullHealthColor = Color.green;
-    public Color zeroHealthColor = Color.red;
-
-
+   
     private bool isPlayerDead;
 
     public int playerNumber;
@@ -22,7 +18,6 @@ public class PlayerHealth : MonoBehaviour {
     {
         GameObject panel = GameObject.Find("HealthPanel" + playerNumber);
         sliderObject = panel.GetComponentInChildren<Slider>();
-        sliderFillImage = sliderObject.GetComponentInChildren<Image>();
     }
 
     // Use this for initialization
@@ -37,7 +32,6 @@ public class PlayerHealth : MonoBehaviour {
         currentHealth -= amount;
         UpdateHealthUI();
 
-
         //Kill the player if they reach zero health
         if(currentHealth <= 0 && !isPlayerDead)
         {
@@ -47,9 +41,8 @@ public class PlayerHealth : MonoBehaviour {
 
     private void UpdateHealthUI()
     {
-        // Adjust the value and colour of the slider.
+        // Adjust the value of the slider.
         sliderObject.value = currentHealth;
-        //sliderFillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHealth / startingHealth);
     }
 
     void PlayerDeath()

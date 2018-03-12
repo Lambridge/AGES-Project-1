@@ -54,7 +54,6 @@ public class ThrowableObject : MonoBehaviour {
 
                 otherMovement.HandleKnockback(currentVelocity);
                 otherHealth.TakeDamage(damageToDeal);
-                
             }
         }
     }
