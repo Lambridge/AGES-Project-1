@@ -13,18 +13,18 @@ public class PlayerManager
     [HideInInspector] public GameObject playerInstance;
 
     private PlayerScript playerMovement;
-    private GrabAndThrowScript playerThrowingObject;
+    private PlayerGrabAndThrow playerThrowingScript;
     private PlayerHealth playerHealth;
     [SerializeField] GameObject canvasObject;
 
     public void Setup()
     {
         playerMovement = playerInstance.GetComponent<PlayerScript>();
-        playerThrowingObject = playerInstance.GetComponentInChildren<GrabAndThrowScript>();
+        playerThrowingScript = playerInstance.GetComponent<PlayerGrabAndThrow>();
         playerHealth = playerInstance.GetComponent<PlayerHealth>();
 
         playerMovement.playerNumber = playerNumber;
-        playerThrowingObject.playerNumber = playerNumber;
+        playerThrowingScript.playerNumber = playerNumber;
         playerHealth.playerNumber = playerNumber;
 
         coloredPlayerText =
@@ -41,14 +41,14 @@ public class PlayerManager
     public void DisableControl()
     {
         playerMovement.enabled = false;
-        playerThrowingObject.enabled = false;
+        playerThrowingScript.enabled = false;
     }
 
 
     public void EnableControl()
     {
         playerMovement.enabled = true;
-        playerThrowingObject.enabled = true;
+        playerThrowingScript.enabled = true;
     }
 
     public void Reset()

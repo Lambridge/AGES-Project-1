@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376754392158556}
   - component: {fileID: 135705013415981914}
-  - component: {fileID: 114576248581958024}
+  - component: {fileID: 114195045838772784}
   m_Layer: 0
   m_Name: ThrowableDetectionCollider
   m_TagString: Untagged
@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114193979321984390}
   - component: {fileID: 54395467285563078}
   - component: {fileID: 114636613052921076}
+  - component: {fileID: 114717233464579960}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -94,7 +95,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 4743649768663044}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4743649768663044
 Transform:
@@ -106,9 +107,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children:
+  - {fileID: 4376754392158556}
   - {fileID: 4861929886175682}
   - {fileID: 4830614733700646}
-  - {fileID: 4376754392158556}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -123,7 +124,7 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4743649768663044}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4861929886175682
 Transform:
@@ -136,7 +137,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4743649768663044}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23622513896174586
 MeshRenderer:
@@ -257,13 +258,14 @@ MonoBehaviour:
   movementVelocity: 5.325
   movementVelocityWithHeadObject: 5.025
   midairAccelerationAmount: 17
+  playerNumber: 1
   groundDetectPoint: {fileID: 4861929886175682}
   groundDetectRadius: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
   jumpVelocity: 9.3
---- !u!114 &114576248581958024
+--- !u!114 &114195045838772784
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -271,12 +273,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1148705657322764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd26c9898ead4e745af5823a3008d4c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 07d433f0e1c8fd941b4e2c1e9b78fe41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 4743649768663044}
-  throwVelocity: 13.75
-  throwHeight: 0.215
 --- !u!114 &114636613052921076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,10 +288,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
-  sliderObject: {fileID: 0}
-  sliderFillImage: {fileID: 0}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  playerNumber: 0
+--- !u!114 &114717233464579960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608498681664368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee2751aa78f7d840a476111b6bba770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwVelocityForward: 12.75
+  throwVelocityY: 1.875
+  playerNumber: 0
 --- !u!135 &135003651166063712
 SphereCollider:
   m_ObjectHideFlags: 1

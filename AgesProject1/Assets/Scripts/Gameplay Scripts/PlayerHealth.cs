@@ -7,15 +7,14 @@ public class PlayerHealth : MonoBehaviour {
 
     public float startingHealth = 3;
     private float currentHealth;
-
-    public Slider sliderObject;
-   
     private bool isPlayerDead;
 
     public int playerNumber;
+    Slider sliderObject;
 
     private void Start()
     {
+        playerNumber = gameObject.GetComponent<PlayerScript>().playerNumber;
         GameObject panel = GameObject.Find("HealthPanel" + playerNumber);
         sliderObject = panel.GetComponentInChildren<Slider>();
     }

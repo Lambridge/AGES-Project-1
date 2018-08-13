@@ -27,6 +27,11 @@ public class MenuManager : MonoBehaviour {
 
     Button startGameButton;
 
+    GameObject playerOnePanel;
+    GameObject playerTwoPanel;
+    GameObject playerThreePanel;
+    GameObject playerFourPanel;
+
     private void Awake()
     {
         playerOneText = GameObject.Find("Player1Text").GetComponent<Text>();
@@ -47,14 +52,59 @@ public class MenuManager : MonoBehaviour {
         playerThreeText.text = promptText;
         playerFourText.text = promptText;
 
+        playerOnePanel = GameObject.Find("PlayerPanel1");
+        playerTwoPanel = GameObject.Find("PlayerPanel2");
+        playerThreePanel = GameObject.Find("PlayerPanel3");
+        playerFourPanel = GameObject.Find("PlayerPanel4");
+
         startGameButton.interactable = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //CheckControllerAmount();
         CheckForPlayerInput();
         UpdateReadyAmount();
 	}
+
+    //private void CheckControllerAmount()
+    //{
+    //    string[] controllers = Input.GetJoystickNames();
+    //    int numberOfControllers = controllers.Length;
+
+    //    if(numberOfControllers <= 0)
+    //    {
+    //        //Disable player panels
+    //        playerOnePanel.SetActive(false);
+    //        playerTwoPanel.SetActive(false);
+    //        playerThreePanel.SetActive(false);
+    //        playerFourPanel.SetActive(false);
+    //        //Show a message saying that controllers need to be plugged in
+    //    }
+    //    else
+    //    {
+    //        if (numberOfControllers == 1 && playerOnePanel.activeSelf == false)
+    //            playerOnePanel.SetActive(true);
+    //        else if (numberOfControllers == 2)
+    //        {
+    //            playerOnePanel.SetActive(true);
+    //            playerTwoPanel.SetActive(true);
+    //        }
+    //        else if (numberOfControllers == 3)
+    //        {
+    //            playerOnePanel.SetActive(true);
+    //            playerTwoPanel.SetActive(true);
+    //            playerThreePanel.SetActive(true);
+    //        }
+    //        else if (numberOfControllers >= 4)
+    //        {
+    //            playerOnePanel.SetActive(true);
+    //            playerTwoPanel.SetActive(true);
+    //            playerThreePanel.SetActive(true);
+    //            playerFourPanel.SetActive(true);
+    //        }
+    //    }
+    //}
 
     private void CheckForPlayerInput()
     {
@@ -122,7 +172,7 @@ public class MenuManager : MonoBehaviour {
             Convert.ToInt32(playerThreeIsReady) +
             Convert.ToInt32(playerFourIsReady);
 
-        if (numberOfReadyPlayers == 4)
+        if (numberOfReadyPlayers >= 2)
             enoughPlayersReady = true;
         else
             enoughPlayersReady = false;

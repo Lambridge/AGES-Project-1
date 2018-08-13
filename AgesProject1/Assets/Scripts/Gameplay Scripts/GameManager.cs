@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] float startGameDelay = 3f;
     [SerializeField] float goMessageDelay = 1f;
     [SerializeField] float endGameDelay = 3f;
-    //public CameraControl cameraControl
+    //public CameraControl cameraControl;
+    public CameraMovement cameraMovement;
 
     [SerializeField] Text gameMessageText;
 
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour {
     private WaitForSeconds endWaitTime;
     private PlayerManager gameWinner;
 
+    [SerializeField] GameObject resultsManager;
+    public static int[] PlayerPlacements;
+
     // Use this for initialization
     void Start () {
         startWaitTime = new WaitForSeconds(startGameDelay);
@@ -28,7 +32,7 @@ public class GameManager : MonoBehaviour {
         endWaitTime = new WaitForSeconds(endGameDelay);
 
         SpawnAllPlayers();
-        //SetCameraTargets();
+        SetCameraTargets();
 
         StartCoroutine(GameLoop());
     }
@@ -44,17 +48,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    //private void SetCameraTargets()
-    //{
-    //    Transform[] targets = new Transform[allPlayers.Length];
+    private void SetCameraTargets()
+    {
+        Transform[] targets = new Transform[allPlayers.Length];
 
-    //    for (int i = 0; i < targets.Length; i++)
-    //    {
-    //        targets[i] = allPlayers[i].playerInstance.transform;
-    //    }
+        for (int i = 0; i < targets.Length; i++)
+        {
+            targets[i] = allPlayers[i].playerInstance.transform;
+        }
 
-    //    cameraControl.m_Targets = targets;
-    //}
+        //cameraControl.cameraTargets = targets;
+        cameraMovement.cameraTargets = targets;
+    }
 
     private IEnumerator GameLoop()
     {
@@ -64,14 +69,17 @@ public class GameManager : MonoBehaviour {
 
         if (gameWinner != null)
         {
-            SceneManager.LoadScene(0);
+            Instantiate(resultsManager);
+
+
+            int resultsScreenIndex = 4;
+            SceneManager.LoadScene(resultsScreenIndex);
         }
         else
         {
             StartCoroutine(GameLoop());
         }
     }
-
 
     private IEnumerator GameStarting()
     {
@@ -97,7 +105,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
     private IEnumerator GameEnding()
     {
         DisableAllPlayers();
@@ -109,7 +116,6 @@ public class GameManager : MonoBehaviour {
 
         yield return endWaitTime;
     }
-
 
     private bool OnePlayerLeft()
     {
@@ -123,7 +129,6 @@ public class GameManager : MonoBehaviour {
 
         return numTanksLeft <= 1;
     }
-
 
     private PlayerManager GetGameWinner()
     {
@@ -146,7 +151,6 @@ public class GameManager : MonoBehaviour {
         return message;
     }
 
-
     private void ResetAllPlayers()
     {
         for (int i = 0; i < allPlayers.Length; i++)
@@ -155,7 +159,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
     private void EnableAllPlayers()
     {
         for (int i = 0; i < allPlayers.Length; i++)
@@ -163,7 +166,6 @@ public class GameManager : MonoBehaviour {
             allPlayers[i].EnableControl();
         }
     }
-
 
     private void DisableAllPlayers()
     {
